@@ -6,6 +6,7 @@
 #RewriteCond %{REQUEST_FILENAME} !-f
 #RewriteCond %{REQUEST_FILENAME} !-l
 
+#RewriteRule ^api/ /api/index.php
 #RewriteRule ^(.+)$ /api/index.php?$1
 #RewriteRule ^.+api\/(.+)\/(.+)\/(.+)$ /api/index.php?method=$1&action=$2&$3
 
