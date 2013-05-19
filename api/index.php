@@ -13,15 +13,16 @@
 
 
 //Secure $_REQUEST from CSRF
-//$_REQUEST = array_merge($_GET, $_POST);
+$_REQUEST = array_merge($_GET, $_POST);
 
 // HTTP GET request example: http://post-it/api/index.php?controller=controllerName&action=actionName&message=Lorem+Ipsum
 //http://post-it/api/index.php?controller=Post&action=createpost&title=note+1&message=asdaasdasdasasd+adad+adad+sdsd&username=test&password=cc03e747a6afbbcbf8be7668acfebee5
 
 //include models
+include_once 'models/MySqlDb.php';
 include_once 'models/postit.php';
 include_once 'models/User.php';
-include_once 'models/Sql.php';
+
 
 
 
@@ -31,9 +32,18 @@ try {
 	//TODO: json_decode with Content-type set to Application/json
 
 	//EXTRACT THE CONTROLLER AND ACTION FOR THE API CALL
+	//$method = $_SERVER['REQUEST_METHOD'];
+	//$params = $_SERVER['REQUEST_URI'];
 	$params = $_REQUEST;
-
-
+	//echo 'method'.$method.' ';
+	//print_r($params);
+	//$params = explode('/', $_SERVER['REQUEST_URI']);
+	//print_r($params);
+	//$params['controller'] = $params[2];
+	//$params['controller'] = $_REQUEST['controller'];
+	//$params['action'] = $params[3];
+	//$params['action'] = $_REQUEST['action'];
+	//print_r($params);
 
 	//$_SERVER['REQUEST_METHOD']  
 	//$_SERVER['REQUEST_URI']

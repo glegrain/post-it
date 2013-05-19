@@ -20,7 +20,9 @@ class Post
 
 	//Testing GET http://post-it/api/index.php?controller=Post&action=test&variable1=123
 	public function test(){
-		return $this->_params; //returns object to front controller
+		$tempVar = PostIt::testQuery();
+		//return $this->_params; //returns object to front controller
+		return $tempVar;
 	}
 
 	//Basic CRUD functions:
@@ -55,6 +57,8 @@ class Post
 
 	public function getPost()
 	{
+		if(!isset($this->_params['post_id']) || empty($this->_params['post_id']))
+	 		throw new Exception("Please specify a post_id", 1);
 		return PostIt::getItem($this->_params['post_id']);
 	}
 

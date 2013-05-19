@@ -7,6 +7,7 @@
 #RewriteCond %{REQUEST_FILENAME} ! -f
 #RewriteCond %{REQUEST_FILENAME} ! -l
 
+#RewriteRule (.*)$ index.php?q=$1  #THIS ONE SHOULD WORK, IT WAS JUST COMMENTED OUT FOR DEBUG
 #RewriteRule ^(.*)$  index.php?method=$1&action=
 #RewriteRule ^.+api\/(.+)\/(.+)\/(.+)$ /api/index.php#?method=$1&action=$2&$3
 

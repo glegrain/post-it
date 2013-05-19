@@ -147,6 +147,7 @@ header li .active {
 	background-image: url("../images/sprite.png");
 	background-repeat: no-repeat;
 	z-index: 2002;
+	cursor: pointer;
 }
 .minus {
 	background-position: 0px 0px;

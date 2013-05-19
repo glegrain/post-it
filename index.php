@@ -1,17 +1,3 @@
-<?php 
-require_once('Connections/dbconn.php');
-require_once('GetSQLValueString.php'); 
-
-//Select db
-mysql_select_db($database_dbconn);
-
-//Query Posts
-$query_getPosts = "SELECT * FROM posts INNER JOIN coordinates USING(`id_post`) ORDER BY `rank` DESC";
-$getPosts = mysql_query($query_getPosts) or die(mysql_error());
-$row_getPosts = mysql_fetch_assoc($getPosts);
-$totalRows_getPosts= mysql_num_rows($getPosts);
-
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,6 +20,7 @@ $totalRows_getPosts= mysql_num_rows($getPosts);
 <script type="text/javascript" src="js/jquery.json-2.3.min.js"></script>
 <!--UI events-->
 <script type="text/javascript" src="js/events.js"></script> 
+
 </head>
 <body style="overflow: hidden;">
 	<header>
@@ -42,21 +29,16 @@ $totalRows_getPosts= mysql_num_rows($getPosts);
 			<li><a href="../instructions.html">Instructions</a></li>
 			<li><a href="../about.html">About</a></li>
 			<li><a href="#">Contact Us</a></li>
-			<li style="float: right; padding-right: 50px"><a href="#">Login</a></li>
+			<li style="float: right; padding-right: 50px"><a href="#" id="login-link">Login</a></li>
 		</ul>
 	</header>
+	
 	<div id="container">
 			<!--SHOW POSTS-->
-			<?php do { ?>
-
-				<div id="post<?php echo $row_getPosts["id_post"];?>" class="post-it" style="left: <?php echo $row_getPosts["x"];?>px; top: <?php echo $row_getPosts["y"];?>px; background-color: #<?php echo dechex($row_getPosts["color"]); ?>" >
-					<h1><?php echo $row_getPosts["title"]?></h1>
-					<p><?php echo $row_getPosts["message"]; ?></p>
-				</div>
-
-			<?php } while ($row_getPosts = mysql_fetch_assoc($getPosts)); ?>
+				<?php include('viewPosts.php'); ?>
 			<!--END SHOWING POSTS-->
 	</div>
+
 	<div class="icon minus" style="right: 1%;
 	top: 50px;width:27px; height: 27px;">&nbsp;</div>
 	<div class="icon plus" style="right: 1%;
@@ -69,4 +51,3 @@ $totalRows_getPosts= mysql_num_rows($getPosts);
 	bottom: 2%; width:40px; height: 40px;">&nbsp;</div>
 </body> 
 </html>
-<?php mysql_close($dbconn); ?>

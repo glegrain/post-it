@@ -6,6 +6,8 @@
 * @author Guillaume Legrain, <legrainguillaume@gmail.com>
 */
 
+
+//TODO: send error if there is no data
 class PostIt
 {
 	public $post_id;
@@ -13,6 +15,12 @@ class PostIt
 	public $message;
 	public $color;
 	///public $post_coord_x;
+
+	public $hostname_dbconn = "localhost";
+public $database_dbconn = "postit";
+public $username_dbconn = "dbuser";
+public $password_dbconn = "g}&9DN&2Ex3.6V:&1_00";
+public $dbconn = new MySqlDb($hostname_dbconn,$username_dbconn, $password_dbconn, $database_dbconn);
 
 	//public function setColor(); //TODO
 	//public function setSize();  //TODO
@@ -144,7 +152,9 @@ class PostIt
 		return true;
 	}
 
-	public function test() {
+	public function testQuery() {
+		$row = $dbconn->query("SELECT * FROM posts");
+		print_r($row);
 		var_dump($this);
 
 		return 0;
