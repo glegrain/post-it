@@ -1,4 +1,5 @@
 Post-it Website Project
+=======================
 Guillaume Legrain
 
 This is a test website project trying to build a REST PHP API
