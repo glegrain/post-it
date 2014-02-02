@@ -9,24 +9,62 @@
 
 
 var notes = [
-        // {
-        //     //"href": "http://postit.herokuapp.com/notes/1"
-        //     id: 0,
-        //     title: 'My first note',
-        //     message: 'Lorem ipsum',
-        //     x: 300,
-        //     y: 300,
-        //     color: '#ff802f'
-        // },
-        // {
-        //     //"href": "http://postit.herokuapp.com/notes/1"
-        //     id: 1,
-        //     title: 'My second note',
-        //     message: 'Lorem ipsum',
-        //     x: 300,
-        //     y: 500,
-        //     color: '#ccff66'
-        // }
+           {
+      "title": "Title",
+      "message": "message ...",
+      "x": "274.6099853515625px",
+      "y": "819.6099853515625px",
+      "color": "#ccff66",
+      "id": 1
+    },
+    {
+      "title": "Instructions",
+      "message": "Use your arrow keys to navigate.\n\nUse 'o' to zoom out.\n\nUse 'p' to zoom in.",
+      "x": "104.09437561035156px",
+      "y": "915.0943603515625px",
+      "color": "#ccff66",
+      "id": 1
+    },
+    {
+      "title": "Title",
+      "message": "message ...",
+      "x": "369.6099853515625px",
+      "y": "542.6099853515625px",
+      "color": "#3366ff",
+      "id": 4
+    },
+    {
+      "title": "Title",
+      "message": "message ...",
+      "x": "149.61000061035156px",
+      "y": "935.6099853515625px",
+      "color": "#ff802f",
+      "id": 5
+    },
+    {
+      "title": "Welcome !",
+      "message": "Please feel free to comment by adding your own posts !",
+      "x": "159.40687561035156px",
+      "y": "526.4068603515625px",
+      "color": "#3366ff",
+      "id": 4
+    },
+    {
+      "title": "Info",
+      "message": "Note how the title is selected when you click on it.",
+      "x": "392.7974853515625px",
+      "y": "255.7974853515625px",
+      "color": "#ff802f",
+      "id": 5
+    },
+    {
+      "title": "Tip",
+      "message": "There is no option to change to color of a postit. (well if you'r hardcore, you can always change its property and it will automatically be saved to the server, magic !)\n\n",
+      "x": "126.48500061035156px",
+      "y": "24.485000610351563px",
+      "color": "#ccff66",
+      "id": 6
+    }
 ];
 
 /*
