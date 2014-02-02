@@ -1,0 +1,300 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8" /> 
+    <title>Post-it</title>
+    
+    <!--Styles-->
+    <link rel="stylesheet" type="text/css" href="stylesheets/main.css">
+    
+    <!--cdn libraries, Uncomment when live-->
+    <!-- NOTE: the protocol (http, https) is omitted so the browser can choose -->
+    <!--
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="//jquery-json.googlecode.com/files/jquery.json-2.3.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"></script> -->
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
+    
+
+    <!--Local libraries, for local testing-->
+    <script type="text/javascript" src="javascripts/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="javascripts/jquery-ui-1.8.18.custom.min.js"></script>
+    <script type="text/javascript" src="javascripts/jquery.json-2.3.min.js"></script>
+    <script type="text/javascript" src="javascripts/underscore-min.js"></script>
+    <script type="text/javascript" src="javascripts/backbone-min.js"></script>
+    
+
+</head>
+<body style="overflow: hidden;">
+    <header>
+        <ul>
+            <li><a href="../index.php">Home</a></li>
+            <li><a href="../instructions.html">Instructions</a></li>
+            <li><a href="../about.html">About</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li style="float: right; padding-right: 50px"><a href="#" id="login-link">Login</a></li>
+        </ul>
+    </header>
+    
+    <div id="container">
+
+        <div id="post-it_container">
+            <!--SHOW POSTS-->
+            <!-- <div id="post41" class="post-it" style="left: 75px; top: 282px; background-color: #0" > -->
+                <!-- <h1>website</h1>
+                <p>adhabdkhajbdhjkasd</p>
+            </div> -->
+        </div>
+        <!--END SHOWING POSTS-->
+    </div>
+    
+    <div id="controls">    
+        <button class="icon minus" style="right: 1%;
+        top: 50px;width:27px; height: 27px;">&nbsp;</button>
+        <button class="icon plus" style="right: 1%;
+        top: 80px;width:27px; height: 27px;">&nbsp;</button>
+        <button class="icon right" style="right: 1%;
+        top: 50%;width:27px; height: 27px;">&nbsp;</button>
+        <button class="icon left" style="left: 1%;
+        top: 50%;width:27px; height: 27px;">&nbsp;</button>
+        <button class="icon plus-round-big" style="right: 2%;
+        bottom: 2%; width:40px; height: 40px;">&nbsp;</button>
+    </div>
+
+    <!-- </div> end of container  -->
+
+
+
+    <!--UI events-->
+    <script type="text/javascript" src="javascripts/events.js"></script>
+    <!--API calls-->
+    <script type="text/javascript" src="#javascripts/calls.js"></script>
+    <!-- backbone script -->
+
+
+    <script type="text/javascript">
+            "use strict"
+            // Models:
+            window.Note = Backbone.Model.extend({
+                
+                defaults: {
+                    title: 'Title',
+                    message: 'message ...',
+                    // color: Array('#ccff66','#ff802f', '#ff6699', '#3366ff')[Math.floor(Math.random()*5)], // in initializer
+                    x: '100px',
+                    y: '300px'
+                },
+
+                initialize: function() {
+                    console.log('new Note created');
+                    // choose random color
+                    if ( !this.get('color')) {
+                        var colors = Array('#ff802f', '#ccff66', '#ccff66', '#ff6699', '#3366ff'); // #ccff66 declared twice to be more frequent
+                        this.set('color', colors[Math.floor(Math.random()*colors.length)])
+                    }
+
+                    this.on('change', function(model) {
+                        console.log('This note changed:' + model.get('id') );
+                        this.save();
+                    });
+
+                },
+                
+                urlRoot: '/notes',
+
+                validate: function( attributes ){
+                    // if( attributes.color < 0 && attributes.name != "Dr Manhatten" ){
+                    //     return "You can't be negative years old";
+                    //  }
+                }
+
+            });
+
+            // Collections
+            window.NotesCollection  = Backbone.Collection.extend({
+                model: Note,
+                url: '/notes',
+                parse: function(resp) {
+                    // console.log('parse function called !!');
+                    resp = resp.items;
+                    // console.log(resp);
+                    return resp;
+                },
+                initialize: function(){
+                    console.log("Created a new NotesCollection.");
+                    //this.fetch(); //  Called later in the ContainerView
+                }
+            })
+
+            window.notes = new NotesCollection();
+
+            // Views
+            window.DocumentView = Backbone.View.extend({
+                events: {
+
+                }
+            });
+
+            window.NoteView = Backbone.View.extend({
+                
+                id: 'post42',
+                className: 'post-it ui-draggable ui-resizable',
+                template: _.template('<a id="close"></a><h1><input class="edit title" type="text" value="<%= title %>"></input></h1><textarea class="edit message" type="text"><%= message %></textarea>'),
+                
+                initialize: function(){
+                    //this.messageInput = this.$(".message");
+                    //this.titleInput = this.$(".title");
+                    this.listenTo(this.model, 'change', this.render);
+                    this.listenTo(this.model, 'destroy', this.remove);
+                },
+
+                render: function(){
+                    var attributes = this.model.toJSON();
+                    //console.log('rendering with: x= ' + this.model.get('x') + ' y = ' + this.model.get('y'));
+                    this.$el.css({top: this.model.get('x'), left: this.model.get('y'), position: 'fixed'});
+                    this.$el.css('background-color', this.model.get('color'));
+                    this.$el.html(this.template(attributes));// equivalent to $(this.el).html(html);
+                    this.$el.draggable();
+                    //this.$el.mouseup(this.trigger('mouseup'));
+                    //this.$el.resizable();
+                    return this;
+                },
+
+                events: {
+                    //'click h1': 'editTitle',
+                    //'keypress .edit'  : 'updateOnKeyPress' // could update when loose focus on slow networks
+                    'blur .title': 'saveTitle',
+                    'blur .message': 'saveMessage',
+                    'click': 'updatePosition',
+                    'mouseover': 'showClose',
+                    'mouseleave': 'hideClose',
+                    'click #close': 'destroy'
+                },
+
+                // editTitle: function() {
+                //     //alert('Hey, you clicked on this post-it.' + this.model.get('title'));
+                //     var newTitle = prompt('', this.model.get('title'));
+                //     this.model.set('title', newTitle);
+                // },
+                
+                saveTitle: function() {
+                    //console.log( this.$('.message').val());
+                    this.model.set({'title': this.$('.title').val()} );
+                },
+
+                saveMessage: function() {
+                    console.log( this.$('.message').val());
+                    this.model.set({'message': this.$('.message').val()} );
+                },
+
+                updatePosition: function() {
+                    //console.log('mouse up');
+                    // console.log(this.$el.position()); // precision isn't good
+                    var x = this.$el.css('top');
+                    var y = this.$el.css('left');
+                    console.log({'x': x, 'y': y});
+                    this.model.set({'x': x, 'y': y});
+                },
+
+                showClose: function() {
+                    this.$('#close').css('display', 'inline');
+                },
+
+                hideClose: function() {
+                    this.$('#close').css('display', 'none');
+                },
+
+                destroy: function(){
+                    this.model.destroy();
+                }
+
+
+
+                // updateOnKeyPress: function(e) {
+                //     this.model.save({message: this.messageInput.val() } );
+                // }
+
+
+                // alertStatus: function(e) {
+                //     alert('Hey, you clicked on this post-it.' + this.model.get('title'));
+                // }
+
+            });
+
+            window.ContainerView = Backbone.View.extend({
+
+                initialize: function(){
+                    //this.render();
+                    this.listenTo(notes, 'add', this.addOne);
+                    this.listenTo(notes, 'reset', this.addAll);
+                    this.listenTo(notes, 'all', this.render);
+                    this.listenTo(notes, 'set', function(){console.log('set called');});
+
+                    notes.fetch();
+
+                    //this.addAll(); // Don't know why i have to call this ?? aparently not very good
+                    // research on set and reset i think
+                    //
+
+                },
+
+                render: function() {
+                    //this.$el.html('<h1>Container rendered</h1>');
+                    return this;
+                },
+
+                addOne: function(note){
+                    console.log('addOne called with ' + note);
+                    var view = new NoteView({model:note });
+                    console.log(view);
+                    view.render();
+                    this.$el.append(view.el);
+                },
+
+                addAll: function() {
+                    notes.each(this.addOne, this);
+                },
+            });
+            
+
+            window.ControlsView = Backbone.View.extend({
+
+                el: $('#controls'),
+
+                events: {
+                    'click .plus-round-big': 'addNew'
+                },
+
+                initialize: function() {
+                    //console.log(this.el.innerHTML   )
+                },
+
+                addNew: function() {
+                    console.log('Adding new note.');
+                    var note = new Note();
+                    this.collection.add(note);
+                    note.save();
+                }
+            });
+
+            // Unclassified
+
+            var containerView = new ContainerView({el : $('#post-it_container')});
+            var controlsView = new ControlsView({collection: notes});
+            // window.notes.length; // get the number of models
+            // window.note1 = new Note();
+            // window.note1.fetch();
+            // window.note1.set('title', 'New title');
+            // window.note1.save();
+            // //window.note1.on('change', function() {this.save()})
+
+            // window.noteView = new NoteView({
+            //     model: note1,
+            //     el: $('#post41')
+            // });
+            // window.noteView.render();
+            // console.log(window.noteView.el);
+    </script> 
+</body> 
+</html>
