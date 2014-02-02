@@ -46,6 +46,12 @@
                 <p>adhabdkhajbdhjkasd</p>
             </div> -->
         </div>
+
+        <script id="postitTemplate" type="text/template">
+            <a id="close"></a>
+            <h1><input class="edit title" type="text" onClick="this.select();" value="<%= title %>"></input></h1>
+            <textarea class="edit message" type="text"><%= message %></textarea>
+        </script>
         <!--END SHOWING POSTS-->
     </div>
     
@@ -140,8 +146,10 @@
                 
                 id: 'post42',
                 className: 'post-it ui-draggable ui-resizable',
-                template: _.template('<a id="close"></a><h1><input class="edit title" type="text" value="<%= title %>"></input></h1><textarea class="edit message" type="text"><%= message %></textarea>'),
+                //template: _.template('<a id="close"></a><h1><input class="edit title" type="text" value="<%= title %>"></input></h1><textarea class="edit message" type="text"><%= message %></textarea>'),
                 
+                template: _.template($('#postitTemplate').html()),
+
                 initialize: function(){
                     //this.messageInput = this.$(".message");
                     //this.titleInput = this.$(".title");
@@ -165,7 +173,7 @@
                     //'click h1': 'editTitle',
                     //'keypress .edit'  : 'updateOnKeyPress' // could update when loose focus on slow networks
                     'blur .title': 'saveTitle',
-                    'blur .message': 'saveMessage',
+                    'blur .message': 'saveMessage', 
                     'click': 'updatePosition',
                     'mouseover': 'showClose',
                     'mouseleave': 'hideClose',

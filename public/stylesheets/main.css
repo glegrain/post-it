@@ -98,6 +98,7 @@ header li .active {
 	height: 215px;
 	background-color: #ccff66;
 	line-height: 140%;
+	cursor: pointer;
 
 
 	-moz-transform: rotate(3deg);
