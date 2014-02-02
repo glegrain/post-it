@@ -4,5 +4,5 @@
  */
 
 exports.list = function(req, res){
-  res.send("Not yet implement.");
+  res.send("Not yet implemented.");
 };
