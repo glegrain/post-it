@@ -102,6 +102,7 @@
 
                     this.on('change', function(model) {
                         console.log('This note changed:' + model.get('id') );
+                        console.log('initializing function of note, saving this because it changed');
                         this.save();
                     });
 
@@ -239,6 +240,7 @@
                     this.listenTo(notes, 'all', this.render);
                     this.listenTo(notes, 'set', function(){console.log('set called');});
 
+                    console.log('fetching notes from containerView');
                     notes.fetch();
 
                     //this.addAll(); // Don't know why i have to call this ?? aparently not very good
@@ -282,7 +284,8 @@
                     console.log('Adding new note.');
                     var note = new Note();
                     this.collection.add(note);
-                    note.save();
+                    console.log('new note added to controlsView, saving note');
+                    //note.save(); //saved when the collection fecthes the id and sets it
                 }
             });
 
@@ -290,6 +293,12 @@
 
             var containerView = new ContainerView({el : $('#post-it_container')});
             var controlsView = new ControlsView({collection: notes});
+
+            //Poll every 5 seconds to keep the channel model up-to-date.
+            // setInterval(function() {
+            //     console.log('poll fetch');
+            //     notes.fetch();
+            // }, 5000);
 
     </script> 
 </body> 

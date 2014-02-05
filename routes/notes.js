@@ -15,7 +15,7 @@ var notes = [
       "x": "274.6099853515625px",
       "y": "819.6099853515625px",
       "color": "#ccff66",
-      "id": 1
+      "id": 0
     },
     {
       "title": "Instructions",
@@ -31,7 +31,7 @@ var notes = [
       "x": "369.6099853515625px",
       "y": "542.6099853515625px",
       "color": "#3366ff",
-      "id": 4
+      "id": 2
     },
     {
       "title": "Title",
@@ -39,7 +39,7 @@ var notes = [
       "x": "149.61000061035156px",
       "y": "935.6099853515625px",
       "color": "#ff802f",
-      "id": 5
+      "id": 3
     },
     {
       "title": "Welcome !",
@@ -66,6 +66,8 @@ var notes = [
       "id": 6
     }
 ];
+
+var autoIncrementId = notes.length;
 
 /*
  * GET notes listing.
@@ -113,7 +115,7 @@ exports.putNote = function(req, res){
 exports.postNote = function(req, res){
     // console.log('Adding new note ...');
     // console.log(req.body);
-    var id = notes.length; // since we append to the array
+    var id = autoIncrementId++; // since we append to the array
     req.body.id = id;
     notes.push(req.body);
     res.location('/notes/' + id);
