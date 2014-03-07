@@ -164,7 +164,7 @@ header li .active {
 }
 
 .post-it .message {
-	font-family: 'Just Me Again Down Here', cursive;
+	font-family: 'Just Me Again Down Here', 'Bradley Hand ITC TT', cursive;
 	color: #191919;
 	font-size: 19px;
 	line-height: 1.2;
