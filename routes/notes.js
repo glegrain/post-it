@@ -7,6 +7,47 @@
 // app.delete('/notes/:id', notes.deleteNote); // delete note
 
 
+var redis = require("redis");
+
+/**
+ * Create client
+ */
+var client = redis.createClient();
+
+client.on("error", function (err) {
+  console.log("error event - " + client.host + ":" + client.port + " - " + err);
+});
+
+
+// TODO: place user model in seperate file
+/**
+ * Note model
+ */
+function Note (id, message) {
+  this.id = id;
+  this.message = message;
+}
+
+/**
+ * query Note by Id
+ */
+Note.find = function (id, fn) {
+  client.hgetall('note:' + id + ':title', function(err, obj) {
+    if (err) return fn(err);
+    fn(null, new Note(id, message));
+  });
+};
+
+/**
+ * save Note or create if there is no id
+ */
+Note.prototype.save = function(fn) {
+  if (!this.id) {
+    this.id = String(Math.random()).substr(3);
+  }
+
+  client.hmset('note:' + this.id , this, fn);  //  save the note to Redis db with key note:1234456 {title: 'sfdsdf', message: 'sdada', ...}
+};
 
 var notes = [
            {
@@ -101,7 +142,7 @@ exports.putNote = function(req, res){
     // console.log(req.body);
     var id = req.params.id;
     // TODO: check it cannot create
-    if (notes[id] = req.body) {
+    if (notes[id] === req.body) {
         return res.json(201);
     }
     return new Error();
@@ -145,3 +186,14 @@ exports.deleteNotes = function(req, res){
     notes = [];
     res.send(200);
 };
+
+
+/**
+ * TEST request
+ */
+ exports.test = function(req, res) {
+    var id = req.params.id;
+
+    if (notes[id]) res.json(notes[id]);
+    else res.json(400, {error:'Could not find your note'});
+ };
