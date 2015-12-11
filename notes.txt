@@ -1,0 +1,46 @@
+Post-it App
+==========
+
+
+Collaboration tool to keep track of notes on a project
+
+Each user will have one or more "workspaces" (name to be defined) (too formal ?, should be fun, "Adventures ??", "Wall")
+which will contain notes for a given project.
+
+
+*TODO*: Research on how it can be different than what already exists.
+ - Simple
+ - Fast
+ - Hassle-free login, create first then login to save
+
+TODO:
+------
+ - Add mouse navigation support
+
+Clients:
+-------
+Web Browser
+iOS
+
+
+Monetization:
+------------
+*TODO*: Research how to
+###Possible solutions:
+ - Free app, pay for private projects
+ - Free app, pay for service.
+ - Free trial
+ - Payed app
+ - Pay to remove Ads
+
+Ideas:
+-----
+ - Provide hacker tools such as export.
+ - Public API (+ Documentation)
+ - Sync with a popular service (Google notes, iCloud , Dropbox... ?)
+ - Organise post-it art contests
+ - enable pictures on the wall, & file (or Dropbox links)
+ - Draw mode
+ - Add link to wikiepdia
+
+
