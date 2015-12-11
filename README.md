@@ -2,7 +2,7 @@ Post-it Website Project
 =======================
 Guillaume Legrain
 
-This is a test website project trying to build a REST PHP API
+This is a test website project trying to build a REST API.
 
 ## Getting started
 ### Requirements
@@ -18,7 +18,7 @@ This is a test website project trying to build a REST PHP API
 
 2. start the post-it app
 
-       node app.js
+       npm start
 
 ### On Mac OS X
 Redis can be installed on Mac OS X using [Homebrew](http://brew.sh/)
