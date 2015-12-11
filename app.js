@@ -30,7 +30,7 @@ if ('development' == app.get('env')) {
 }
 
 //app.get('/', routes.index);
-app.get('/users', user.list); //list users
+//app.get('/users', user.list); //list users
 
 app.get('/notes', notes.getNotes); // list notes
 app.post('/notes', notes.postNote); // create a new note
