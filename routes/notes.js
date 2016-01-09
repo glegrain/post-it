@@ -142,11 +142,10 @@ exports.putNote = function(req, res){
     // console.log(req.body);
     var id = req.params.id;
     // TODO: check it cannot create
-    if (notes[id] === req.body) {
-        return res.json(201);
-    }
-    return new Error();
-    
+    // TODO: return 404 if id not found or invalid
+    // TODO: return 204 when there is no content
+    notes[id] = req.body;
+    res.send(200);
 };
 
 /*
