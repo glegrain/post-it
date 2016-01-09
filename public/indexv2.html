@@ -25,8 +25,8 @@
 <div id="container" ng-controller="NotesCtrl">
   <div id="post-it_container" ng-repeat="note in notes">
     <div id="post{{note.id}}" class="post-it" style="
-    top: {{note.x}};
-    left: {{note.y}};
+    top: {{note.y}};
+    left: {{note.x}};
     background-color: {{note.color}};
     " draggable>
      <a id="close"></a>
