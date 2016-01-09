@@ -67,7 +67,8 @@ ngApp.directive('draggable', function($document) {
   return function(scope, element, attr) {
     var startX = 0, startY = 0, x = 0, y = 0;
     element.on('mousedown', function(event) {
-      // Prevent default dragging of selected content
+      x = element[0].offsetLeft
+      y = element[0].offsetTop;
       startX = event.screenX - element[0].offsetLeft;
       startY = event.screenY - element[0].offsetTop;
       $document.on('mousemove', mousemove);
