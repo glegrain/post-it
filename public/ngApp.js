@@ -55,7 +55,10 @@ ngApp.controller('NotesCtrl', function($scope, Note) {
   $scope.addNote = function() {
     // NOTE: we can call new on Note because it is a factory service
     myNewNote = new Note();
-    myNewNote.title = 'Super cool!';
+    myNewNote.title = 'Enter title';
+    myNewNote.message = 'Enter message ...';
+    myNewNote.x = Math.random() * window.innerWidth + 'px';
+    myNewNote.y = Math.random() * window.innerHeight + 'px';
     Note.save(myNewNote, function(res) {
       // done
       $scope.notes.push(res);
