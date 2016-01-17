@@ -12,7 +12,7 @@ var redis = require("redis");
 /**
  * Create client
  */
-var redis_url = process.env.REDIS_URL || "6379";
+var redis_url = process.env.REDIS_URL;
 var client = redis.createClient(redis_url);
 
 client.on("error", function (err) {
