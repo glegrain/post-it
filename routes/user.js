@@ -1,7 +1,7 @@
 /**
  * Module dependencies.
  */
-var redis = require('redis');
+// var redis = require('redis');
 /**
  * Module exports
  */
@@ -9,7 +9,7 @@ module.exports = User;
 /**
  * Create client.
  */
-var client = redis.createClient();
+// var client = redis.createClient();
 
 /**
  * User model

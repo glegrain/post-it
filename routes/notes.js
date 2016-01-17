@@ -7,16 +7,17 @@
 // app.delete('/notes/:id', notes.deleteNote); // delete note
 
 
-var redis = require("redis");
+//var redis = require("redis");
 
 /**
  * Create client
  */
-var client = redis.createClient();
+// var redis_url = process.env.REDIS_URL || "redis://127.0.0.1:6379";
+// var client = redis.createClient(redis_url);
 
-client.on("error", function (err) {
-  console.log("error event - " + client.host + ":" + client.port + " - " + err);
-});
+// client.on("error", function (err) {
+//   console.log("error event - " + client.host + ":" + client.port + " - " + err);
+// });
 
 
 // TODO: place user model in seperate file
@@ -32,10 +33,10 @@ function Note (id, message) {
  * query Note by Id
  */
 Note.find = function (id, fn) {
-  client.hgetall('note:' + id + ':title', function(err, obj) {
-    if (err) return fn(err);
-    fn(null, new Note(id, message));
-  });
+  // client.hgetall('note:' + id + ':title', function(err, obj) {
+  //   if (err) return fn(err);
+  //   fn(null, new Note(id, message));
+  // });
 };
 
 /**
@@ -46,7 +47,7 @@ Note.prototype.save = function(fn) {
     this.id = String(Math.random()).substr(3);
   }
 
-  client.hmset('note:' + this.id , this, fn);  //  save the note to Redis db with key note:1234456 {title: 'sfdsdf', message: 'sdada', ...}
+  //client.hmset('note:' + this.id , this, fn);  //  save the note to Redis db with key note:1234456 {title: 'sfdsdf', message: 'sdada', ...}
 };
 
 var notes = [
