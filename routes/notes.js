@@ -12,7 +12,8 @@ var redis = require("redis");
 /**
  * Create client
  */
-var client = redis.createClient();
+var redis_url = process.env.REDIS_URL || "6379";
+var client = redis.createClient(redis_url);
 
 client.on("error", function (err) {
   console.log("error event - " + client.host + ":" + client.port + " - " + err);
