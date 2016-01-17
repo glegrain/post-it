@@ -8,21 +8,24 @@ This is a test website project trying to build a REST API.
 ### Requirements
 - node.js
 - npm
-- redis-server
 
 
 ### Quickstart
-1. Start your redis server
+1. Install required node modules
 
-       redis-server
+```
+npm install
+```
 
 2. start the post-it app
 
-       npm start
+```
+npm start
+```
 
-### On Mac OS X
+<!-- ### On Mac OS X
 Redis can be installed on Mac OS X using [Homebrew](http://brew.sh/)
-      brew install redis
+      brew install redis -->
 
 
 ![post-it](https://cloud.githubusercontent.com/assets/1526213/6551067/5b68d048-c5ef-11e4-965b-518c072e8732.png)
