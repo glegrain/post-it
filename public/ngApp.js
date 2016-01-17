@@ -1,24 +1,3 @@
-// //
-// // using $http
-// //
-// var ngApp = angular.module('MyApp', []);
-// ngApp.controller('NotesCtrl', function($scope, $http) {
-//   $http.get('/notes').
-//   success(function(data, status, headers, config) {
-//     console.log(data);
-//     $scope.notes = data.items;
-//   })
-//   .error(function(data, status, headers, config) {
-//     console.log("ERROR");
-//   });
-// });
-
-
-//
-// Using $ressource
-//
-
-
 var ngApp = angular.module('myApp', ['ngResource']);
 
 // declare a dependency on $resource
