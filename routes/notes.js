@@ -54,56 +54,56 @@ var notes = [
            {
       "title": "Title",
       "message": "message ...",
-      "x": "274.6099853515625px",
-      "y": "819.6099853515625px",
+      "x": "819.6099853515625px",
+      "y": "274.6099853515625px",
       "color": "#ccff66",
       "id": 0
     },
     {
       "title": "Instructions",
       "message": "Use your arrow keys to navigate.\n\nUse 'o' to zoom out.\n\nUse 'p' to zoom in.",
-      "x": "104.09437561035156px",
-      "y": "915.0943603515625px",
+      "x": "915.0943603515625px",
+      "y": "104.09437561035156px",
       "color": "#ccff66",
       "id": 1
     },
     {
       "title": "Title",
       "message": "message ...",
-      "x": "369.6099853515625px",
-      "y": "542.6099853515625px",
+      "x": "542.6099853515625px",
+      "y": "369.6099853515625px",
       "color": "#3366ff",
       "id": 2
     },
     {
       "title": "Title",
       "message": "message ...",
-      "x": "149.61000061035156px",
-      "y": "935.6099853515625px",
+      "x": "935.6099853515625px",
+      "y": "149.61000061035156px",
       "color": "#ff802f",
       "id": 3
     },
     {
       "title": "Welcome !",
       "message": "Please feel free to comment by adding your own posts !",
-      "x": "159.40687561035156px",
-      "y": "526.4068603515625px",
+      "x": "526.4068603515625px",
+      "y": "159.40687561035156px",
       "color": "#3366ff",
       "id": 4
     },
     {
       "title": "Info",
       "message": "Note how the title is selected when you click on it.",
-      "x": "392.7974853515625px",
-      "y": "255.7974853515625px",
+      "x": "255.7974853515625px",
+      "y": "392.7974853515625px",
       "color": "#ff802f",
       "id": 5
     },
     {
       "title": "Tip",
       "message": "There is no option to change to color of a postit. (well if you'r hardcore, you can always change its property and it will automatically be saved to the server, magic !)\n\n",
-      "x": "126.48500061035156px",
-      "y": "24.485000610351563px",
+      "x": "24.485000610351563px",
+      "y": "126.48500061035156px",
       "color": "#ccff66",
       "id": 6
     }
