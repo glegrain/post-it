@@ -109,6 +109,17 @@ var notes = [
     }
 ];
 
+/**
+ * helper function to return array index of element with matching id
+ */
+var findNoteIndexWithId = function(id) {
+    for (var i = 0; i < notes.length; i++) {
+      if (notes[i].id == id) return i;
+    }
+    console.log('note with id: ' + id + ' was not found.')
+    return -1;
+  }
+
 var autoIncrementId = notes.length;
 
 /*
@@ -129,7 +140,8 @@ exports.getNotes = function(req, res){
 // app.get('/notes/:id', notes.getNote);
 exports.getNote = function(req, res){
     var id = req.params.id;
-    if (notes[id]) res.json(notes[id]);
+    var arrayId = findNoteIndexWithId(id);
+    if (arrayId > 0 && notes[arrayId]) res.json(notes[arrayId]);
     else res.json(400, {error:'Could not find your note'});
 };
 
@@ -145,7 +157,8 @@ exports.putNote = function(req, res){
     // TODO: check it cannot create
     // TODO: return 404 if id not found or invalid
     // TODO: return 204 when there is no content
-    notes[id] = req.body;
+    var arrayId = findNoteIndexWithId(id);
+    notes[arrayId] = req.body;
     res.send(200);
 };
 
@@ -169,7 +182,8 @@ exports.postNote = function(req, res){
 // app.delete('/notes/:id', notes.deleteNote); // delete note
 exports.deleteNote = function(req, res){
     var id = req.params.id;
-    var deletedItem = notes.splice(id,1);
+    var arrayId = findNoteIndexWithId(id);
+    var deletedItem = notes.splice(arrayId, 1);
     //delete notes[id];
     console.log('deletedItem', deletedItem[0]);
     if (deletedItem.length !== 1) {
