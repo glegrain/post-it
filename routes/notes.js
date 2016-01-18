@@ -173,7 +173,8 @@ exports.postNote = function(req, res){
     req.body.id = id;
     notes.push(req.body);
     res.location('/notes/' + id);
-    res.json(201, notes[id]);
+    var arrayId = findNoteIndexWithId(id);
+    res.json(201, notes[arrayId]);
 };
 
 /*
