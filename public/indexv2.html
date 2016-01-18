@@ -23,18 +23,16 @@
 </header>
 
 <div id="container" ng-controller="NotesCtrl">
-  <div id="post-it_container" ng-repeat="note in notes">
-    <div id="post{{note.id}}" class="post-it" style="
-    top: {{note.y}};
-    left: {{note.x}};
-    background-color: {{note.color}};
-    " draggable>
-     <a id="close" ng-click="deleteNote(note.id)"></a>
-      {{note.id}}
-      <h1><input ng-model="note.title" class="edit title" type="text" value="{{note.title}}" ng-blur="updateNote(note.id)"></input></h1>
-      <textarea ng-model="note.message" class="edit message" type="text" ng-blur="updateNote(note.id)">{{note.message}}</textarea>
-    </div> <!-- End of post-it -->
-  </div> <!-- End of post-it_container -->
+  <div id="post{{note.id}}" class="post-it" ng-repeat="note in notes" style="
+  top: {{note.y}};
+  left: {{note.x}};
+  background-color: {{note.color}};
+  " draggable>
+    <a id="close" ng-click="deleteNote(note.id)"></a>
+    {{note.id}}
+    <h1><input ng-model="note.title" class="edit title" type="text" value="{{note.title}}" ng-blur="updateNote(note.id)"></input></h1>
+    <textarea ng-model="note.message" class="edit message" type="text" ng-blur="updateNote(note.id)">{{note.message}}</textarea>
+  </div> <!-- End of post-it -->
 
   <div id="controls">
     <button class="icon minus" style="right: 1%;
