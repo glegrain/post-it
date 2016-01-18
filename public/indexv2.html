@@ -7,10 +7,13 @@
     <script src="/javascripts/angular.js"></script>
     <script src="/javascripts/angular-resource.min.js"></script>
     <script src="ngApp.js"></script>
+    <script src="javascripts/jquery-1.7.1.min.js"></script>
+    <script src="javascripts/events.js"></script>
+
     <!--Styles-->
     <link rel="stylesheet" type="text/css" href="stylesheets/main.css">
 </head>
-<body style="overflow: hidden;">
+<body style="overflow: hidden;" ng-controller="NotesCtrl">
 
 <header>
   <ul>
@@ -22,7 +25,7 @@
   </ul>
 </header>
 
-<div id="container" ng-controller="NotesCtrl">
+<div id="container">
   <div id="post{{note.id}}" class="post-it" ng-repeat="note in notes" style="
   top: {{note.y}};
   left: {{note.x}};
@@ -34,7 +37,9 @@
     <textarea ng-model="note.message" class="edit message" type="text" ng-blur="updateNote(note.id)">{{note.message}}</textarea>
   </div> <!-- End of post-it -->
 
-  <div id="controls">
+</div> <!-- End of container -->
+
+<div id="controls">
     <button class="icon minus" style="right: 1%;
     top: 50px;width:27px; height: 27px;">&nbsp;</button>
     <button class="icon plus" style="right: 1%;
@@ -46,8 +51,6 @@
     <button class="icon plus-round-big" style="right: 2%;
     bottom: 2%; width:40px; height: 40px;" ng-click="addNote()">&nbsp;</button>
   </div> <!-- End of controls -->
-
-</div> <!-- End of container -->
 
 
 </body>
