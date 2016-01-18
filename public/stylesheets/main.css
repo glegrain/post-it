@@ -145,6 +145,10 @@ header li .active {
 	display: none;
 }
 
+.post-it:hover #close {
+	display: inline;
+}
+
 .post-it .title {
 	font-family: "Marker Felt","Leckerli One", cursive, sans-serif;
 	line-height: 12px;

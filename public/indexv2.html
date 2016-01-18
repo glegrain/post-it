@@ -29,12 +29,11 @@
     left: {{note.x}};
     background-color: {{note.color}};
     " draggable>
-     <a id="close"></a>
+     <a id="close" ng-click="deleteNote(note.id)"></a>
       {{note.id}}
       <h1><input ng-model="note.title" class="edit title" type="text" value="{{note.title}}"></input></h1>
       <textarea ng-model="note.message" class="edit message" type="text">{{note.message}}</textarea>
       <button type="button" ng-click="updateNote(note.id)">Save</button>
-      <button type="button" ng-click="deleteNote(note.id)">Delete</button>
     </div> <!-- End of post-it -->
   </div> <!-- End of post-it_container -->
 
