@@ -14,6 +14,14 @@ ngApp.factory('Note', function($resource) {
 // get(), query(), save(), remove(), delete()
 
 ngApp.controller('NotesCtrl', function($scope, Note) {
+  // util function to find note with id
+  var findNoteIndexWithId = function(id) {
+    for (var i = 0; i < $scope.notes.length; i++) {
+      if ($scope.notes[i].id == id) return i;
+    }
+    console.log('note with id: ' + id + ' was not found.')
+    return -1;
+  }
 
   // query() all entries
   var response = Note.query(function() {
@@ -21,12 +29,16 @@ ngApp.controller('NotesCtrl', function($scope, Note) {
   });
 
   $scope.updateNote = function(id) {
-    Note.update({'id': id}, $scope.notes[id]);
+    var arrayId = findNoteIndexWithId(id);
+    if (arrayId < 0) {return;}
+    Note.update({'id': id}, $scope.notes[arrayId]);
   };
 
   $scope.deleteNote = function(id) {
     // remove note from view
-    $scope.notes.splice(id, 1);
+    var arrayId = findNoteIndexWithId(id);
+    if (arrayId < 0) {return;}
+    $scope.notes.splice(arrayId, 1);
     // remove note from API
     Note.delete({'id': id});
   };
