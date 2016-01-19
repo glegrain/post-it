@@ -6,52 +6,11 @@
 // app.post('/notes/:i', notes.postNote); // creates a new note
 // app.delete('/notes/:id', notes.deleteNote); // delete note
 
-
-//var redis = require("redis");
-
-/**
- * Create client
- */
-// var redis_url = process.env.REDIS_URL || "redis://127.0.0.1:6379";
-// var client = redis.createClient(redis_url);
-
-// client.on("error", function (err) {
-//   console.log("error event - " + client.host + ":" + client.port + " - " + err);
-// });
-
-
-// TODO: place user model in seperate file
-/**
- * Note model
- */
-function Note (id, message) {
-  this.id = id;
-  this.message = message;
-}
-
-/**
- * query Note by Id
- */
-Note.find = function (id, fn) {
-  // client.hgetall('note:' + id + ':title', function(err, obj) {
-  //   if (err) return fn(err);
-  //   fn(null, new Note(id, message));
-  // });
-};
-
-/**
- * save Note or create if there is no id
- */
-Note.prototype.save = function(fn) {
-  if (!this.id) {
-    this.id = String(Math.random()).substr(3);
-  }
-
-  //client.hmset('note:' + this.id , this, fn);  //  save the note to Redis db with key note:1234456 {title: 'sfdsdf', message: 'sdada', ...}
-};
+// load MongoDB post-it note model
+var Note = require('../models/Notes');
 
 var notes = [
-           {
+    {
       "title": "Title",
       "message": "message ...",
       "x": "819.6099853515625px",
@@ -109,27 +68,16 @@ var notes = [
     }
 ];
 
-/**
- * helper function to return array index of element with matching id
- */
-var findNoteIndexWithId = function(id) {
-    for (var i = 0; i < notes.length; i++) {
-      if (notes[i].id == id) return i;
-    }
-    console.log('note with id: ' + id + ' was not found.')
-    return -1;
-  }
 
-var autoIncrementId = notes.length;
 
 /*
  * GET notes listing.
  */
 // app.get('/notes', notes.getNotes); // list notes
 exports.getNotes = function(req, res){
-  res.json({
-    //"href": "http://postit.herokuapp.com/notes",
-    "items":  notes
+  Note.find(function(err, notes) {
+    if (err) return res.json(400, {error:'Error finding notes'});
+    return res.json({"items":  notes });
   });
 };
 
@@ -138,11 +86,12 @@ exports.getNotes = function(req, res){
  * GET note by id.
  */
 // app.get('/notes/:id', notes.getNote);
-exports.getNote = function(req, res){
-    var id = req.params.id;
-    var arrayId = findNoteIndexWithId(id);
-    if (arrayId > 0 && notes[arrayId]) res.json(notes[arrayId]);
-    else res.json(400, {error:'Could not find your note'});
+exports.getNote = function(req, res) {
+  var query = Note.findById(req.params.id);
+  query.exec(function(err, note) {
+    if (err) return res.json(404, {error: err});
+    return res.json(note);
+  });
 };
 
 
@@ -150,16 +99,13 @@ exports.getNote = function(req, res){
  * PUT if exist update note, else error
  */
 // app.put('/notes/:id', notes.putNote); // if exist update note, else error
-exports.putNote = function(req, res){
+exports.putNote = function(req, res) {
     // console.log('Updating note ...');
     // console.log(req.body);
-    var id = req.params.id;
-    // TODO: check it cannot create
-    // TODO: return 404 if id not found or invalid
-    // TODO: return 204 when there is no content
-    var arrayId = findNoteIndexWithId(id);
-    notes[arrayId] = req.body;
-    res.send(200);
+    Note.update({_id: req.params.id}, req.body, null, function(err, raw) {
+      if (err) return res.json(500, {error: err});
+      return res.send(200);
+    });
 };
 
 /*
@@ -169,12 +115,13 @@ exports.putNote = function(req, res){
 exports.postNote = function(req, res){
     // console.log('Adding new note ...');
     // console.log(req.body);
-    var id = autoIncrementId++; // since we append to the array
-    req.body.id = id;
-    notes.push(req.body);
-    res.location('/notes/' + id);
-    var arrayId = findNoteIndexWithId(id);
-    res.json(201, notes[arrayId]);
+    var newNote = new Note(req.body);
+    newNote.save(function(err, note) {
+      if (err) {
+        return res.json(400, {error:'Failed to save note: ' + newNote});
+      }
+      return res.json(201, note);
+    });
 };
 
 /*
@@ -182,15 +129,12 @@ exports.postNote = function(req, res){
  */
 // app.delete('/notes/:id', notes.deleteNote); // delete note
 exports.deleteNote = function(req, res){
-    var id = req.params.id;
-    var arrayId = findNoteIndexWithId(id);
-    var deletedItem = notes.splice(arrayId, 1);
-    //delete notes[id];
-    console.log('deletedItem', deletedItem[0]);
-    if (deletedItem.length !== 1) {
-        return res.json('404', {error: '404', message: 'Could not delete.'});
-    }
-    return res.json(201);
+    Note.remove({
+      _id: req.params.id
+    }, function(err, note) {
+      if (err) return res.json(404, {error: err});
+      return res.json(201);
+    });
 };
 
 /*
@@ -198,17 +142,9 @@ exports.deleteNote = function(req, res){
  */
 // app.delete('/notes', notes.deleteNotes ); // delete all notes
 exports.deleteNotes = function(req, res){
-    notes = [];
-    res.send(200);
+  // empty filter to remove all notes
+  Note.remove({}, function(err) {
+    console.log(err);
+    return res.send(200);
+  });
 };
-
-
-/**
- * TEST request
- */
- exports.test = function(req, res) {
-    var id = req.params.id;
-
-    if (notes[id]) res.json(notes[id]);
-    else res.json(400, {error:'Could not find your note'});
- };

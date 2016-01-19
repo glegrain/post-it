@@ -9,6 +9,10 @@ var user = require('./routes/user');
 var notes = require('./routes/notes');
 var http = require('http');
 var path = require('path');
+var mongoose = require('mongoose');
+
+// open a new mongodb connection to the notes database
+mongoose.connect('mongodb://localhost/notes');
 
 var app = express();
 

@@ -17,7 +17,7 @@ ngApp.controller('NotesCtrl', function($scope, Note) {
   // util function to find note with id
   var findNoteIndexWithId = function(id) {
     for (var i = 0; i < $scope.notes.length; i++) {
-      if ($scope.notes[i].id == id) return i;
+      if ($scope.notes[i]._id == id) return i;
     }
     console.log('note with id: ' + id + ' was not found.')
     return -1;
@@ -85,7 +85,7 @@ ngApp.directive('draggable', function($document) {
       scope.note.x = x + 'px';
       scope.note.y = y + 'px';
       scope.$apply();
-      scope.updateNote(scope.note.id);
+      scope.updateNote(scope.note._id);
     }
   };
 });
