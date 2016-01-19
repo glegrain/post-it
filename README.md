@@ -8,6 +8,7 @@ This is a test website project trying to build a REST API.
 ### Requirements
 - node.js
 - npm
+- MongoDB
 
 
 ### Quickstart
@@ -16,8 +17,13 @@ This is a test website project trying to build a REST API.
 ```
 npm install
 ```
+2. If mongo isn't running on your machine, start a mongo server with:
 
-2. start the post-it app
+```
+mongod &
+```
+
+3. start the post-it app
 
 ```
 npm start
