@@ -1,13 +1,12 @@
 {
   "name": "post-it",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "scripts": {
     "start": "node app.js"
   },
   "dependencies": {
     "express": "^3.4.8",
-    "http": "0.0.0",
     "jade": "*",
     "mongoose": "^4.3.6",
     "path": "^0.12.7"

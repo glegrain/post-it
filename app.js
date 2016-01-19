@@ -7,7 +7,6 @@ var express = require('express');
 var routes = require('./routes');
 var user = require('./routes/user');
 var notes = require('./routes/notes');
-var http = require('http');
 var path = require('path');
 var mongoose = require('mongoose');
 
@@ -61,6 +60,6 @@ app.put('/notes/:id', notes.putNote); // if exist update note, else error
 app.post('/notes/:id', function(req,res){throw new Error(); }); // creates a new note
 app.delete('/notes/:id', notes.deleteNote); // delete note
 
-http.createServer(app).listen(app.get('port'), function(){
+app.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
