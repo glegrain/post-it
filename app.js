@@ -12,7 +12,8 @@ var path = require('path');
 var mongoose = require('mongoose');
 
 // open a new mongodb connection to the notes database
-mongoose.connect('mongodb://localhost/notes');
+var mongo_uri = process.env.MONGOLAB_URI || 'mongodb://localhost';
+mongoose.connect(mongo_uri + '/notes');
 
 var app = express();
 
